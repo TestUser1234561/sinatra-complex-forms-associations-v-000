@@ -35,7 +35,8 @@ class PetsController < ApplicationController
     @pet = Pet.find(params[:id])
     @pet.update(params["pet"])
     if params["owner"]
-      owner = Owner.find_by(name: params["owner"]["name"]) ? Owner.find_by(name: params["owner"]["name"]) : Owner.create(name: params["owner"]["name"])
+      owner? = Owner.find_by(name: params["owner"]["name"])
+      owner = owner? ? owner? : Owner.create(name: params["owner"]["name"])
       @pet.update(owner: owner)
     end
     redirect to "pets/#{@pet.id}"
